@@ -5,6 +5,9 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT;
 const conectarMongoDB = require("./config/mongo.js");
+const { createUser, getUserById } = require('./models/user');
+
+app.use('/api', require("./routes"))
 
 app.use(cors());
 
