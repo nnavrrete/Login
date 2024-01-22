@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const { getUser, createUser, DeleteUserS, UpdateUser  } = require("../controllers/user")
 
-router.get('/user', (req, res) => {
-  const data = ['Elber Galarga', '12345678'];
-  res.send({ data });
-});
+router.get('/', getUser )
+router.post()
 
 module.exports = router;

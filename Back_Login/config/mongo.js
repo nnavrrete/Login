@@ -7,7 +7,9 @@ async function conectarMongoDB() {
   try {
     // Obtener variables de entorno
     const URI = process.env.DB_URI;
-    const nombreBaseDatos = process.env.NOMBRE_BASE_DATOS;
+    const nombreBaseDatos = process.env.DB_NAME;
+
+    console.log('URI:', URI); // Debug statement
 
     // Crear un nuevo MongoClient si aún no está definido
     if (!cliente) {
@@ -20,6 +22,8 @@ async function conectarMongoDB() {
 
     // Obtener la base de datos
     const baseDatos = cliente.db(nombreBaseDatos);
+
+    console.log('Base de datos:', nombreBaseDatos); // Debug statement
 
     // Devolver el objeto cliente para que se pueda utilizar en otras partes de la aplicación
     return cliente;

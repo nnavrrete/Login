@@ -1,0 +1,1 @@
+mongodb+srv://nicolasanq129:<password>@api.ma8wq1e.mongodb.net/?retryWrites=true&w=majority
