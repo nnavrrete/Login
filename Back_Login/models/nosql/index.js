@@ -1,7 +1,6 @@
 const models = {
-
-    userModel: require("./")
-
+ 
+UserModel: require('./user.js')
 
 }
 

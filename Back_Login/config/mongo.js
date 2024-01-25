@@ -1,36 +1,23 @@
-const { MongoClient } = require('mongodb');
-require('dotenv').config();
-
-let cliente; // Variable global para almacenar el cliente MongoDB
-
-async function conectarMongoDB() {
+const { MongoClient, ServerApiVersion } = require('mongodb');
+require("dotenv").config();
+const uri = process.env.DB_URI;
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+async function rundb() {
   try {
-    // Obtener variables de entorno
-    const URI = process.env.DB_URI;
-    const nombreBaseDatos = process.env.DB_NAME;
-
-    console.log('URI:', URI); // Debug statement
-
-    // Crear un nuevo MongoClient si aún no está definido
-    if (!cliente) {
-      cliente = new MongoClient(URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
-      // Conectar al servidor
-      await cliente.connect();
-      console.log('Conectado al servidor de MongoDB');
-    }
-
-    // Obtener la base de datos
-    const baseDatos = cliente.db(nombreBaseDatos);
-
-    console.log('Base de datos:', nombreBaseDatos); // Debug statement
-
-    // Devolver el objeto cliente para que se pueda utilizar en otras partes de la aplicación
-    return cliente;
-  } catch (error) {
-    console.error('Error al conectar con MongoDB:', error);
-    throw error; // Re-lanzar el error para que pueda ser manejado en la aplicación
+    await client.connect();
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } catch {
+    rundb().catch(console.dir);
   }
 }
 
-module.exports = conectarMongoDB;
+
+module.exports = {rundb}
